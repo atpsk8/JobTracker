@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/scan-email.js": {
+      "includeFiles": "job-application-keywords.json",
+      "maxDuration": 60
+    }
+  }
+}
