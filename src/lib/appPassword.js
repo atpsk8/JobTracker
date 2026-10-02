@@ -37,6 +37,8 @@ export async function scanWithAppPassword(provider, email, appPassword, since) {
   })
   const data = await res.json().catch(() => null)
   if (res.status === 401) throw new BadPasswordError(data?.error || 'Sign-in failed.')
+  // From the site's rate limit (Vercel Firewall), which stops the scanner being used to guess passwords
+  if (res.status === 429) throw new Error('Too many scans from your network in the last hour. Wait a while and try again.')
   if (!res.ok) throw new Error(data?.error || `Scan failed (${res.status})`)
   return data.emails.map((e) => ({ ...e, date: new Date(e.date) }))
 }

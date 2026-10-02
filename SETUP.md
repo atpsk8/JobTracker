@@ -63,8 +63,10 @@ Notes:
 
 1. Push the project to GitHub and import it in Vercel. It detects Vite and the `api/` folder on
    its own.
-2. In **Vercel → Settings → Environment Variables**, add `VITE_MS_CLIENT_ID`, then **redeploy**.
-   The ID is built into the page at build time, so it only takes effect in a new build.
+2. Put your Outlook app ID in `.env.production` (`VITE_MS_CLIENT_ID=…`) and include that file in
+   the upload. Vercel builds the live site with it. The ID isn't a secret, because it's visible in
+   the built site anyway. (`.env` is only for `npm run dev` and is never uploaded.) The ID is built
+   into the page, so a change only takes effect in a new deploy.
 3. In the Azure app registration, open **Authentication** and add a second SPA redirect URI:
    `https://<your-app>.vercel.app/redirect.html` (and one per custom domain, if you add any).
 4. Add a rate-limit rule for `/api/scan-email` in **Vercel → Firewall**. Without one, anyone could
